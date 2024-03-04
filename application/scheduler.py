@@ -14,25 +14,23 @@ def hello_world():
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'  # Replace 'your_secret_key' with your own secret key
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'  # SQLite database path
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'  # SQLite database path
 
-db = SQLAlchemy(app)
+#db = SQLAlchemy(app)
 
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-
-class User(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(100), unique=True, nullable=False)
-    password = db.Column(db.String(100), nullable=False)
+#id = db.Column(db.Integer, primary_key=True)
+ #   username = db.Column(db.String(100), unique=True, nullable=False)
+  #  password = db.Column(db.String(100), nullable=False)
 
 # Create the user table
-db.create_all()
+#db.create_all()
 
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
+#@login_manager.user_loader
+#def load_user(user_id):
+ #   return User.query.get(int(user_id))
 
 
 # Example user class (replace with your own user model)
@@ -78,7 +76,13 @@ def logout():
 @app.route('/')
 @login_required
 def index():
-    return render_template ('index.html')
+    return 'Hello, {}'.format(current_user.id)
+
+
+@app.route('/calendar')
+@login_required
+def calendar():
+    return render_template ('calendar.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
