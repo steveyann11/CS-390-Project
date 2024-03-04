@@ -78,7 +78,7 @@ def logout():
 @app.route('/')
 @login_required
 def index():
-    return 'Hello, {}'.format(current_user.id)
+    return render_template ('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
