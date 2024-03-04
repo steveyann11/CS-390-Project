@@ -1,12 +1,12 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 
 
 app = Flask(__name__)
 
-@app.route("/index")
+@app.route('/index')
 def hello_world():
-    return render_template 'index.html'
+    return render_template ('index.html')
 
 
 
