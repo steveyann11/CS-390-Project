@@ -5,13 +5,6 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 app = Flask(__name__)
 
 
-@app.route('/index')
-def hello_world():
-    return render_template ('index.html')
-
-
-
-
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'  # Replace 'your_secret_key' with your own secret key
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'  # SQLite database path
@@ -76,7 +69,7 @@ def logout():
 @app.route('/')
 @login_required
 def index():
-    return 'Hello, {}'.format(current_user.id)
+    return render_template('homepage.html')
 
 
 @app.route('/calendar')
