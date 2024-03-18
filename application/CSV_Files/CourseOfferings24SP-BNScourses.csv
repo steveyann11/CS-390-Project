@@ -1,0 +1,11 @@
+Section Name,Short Title,Min Cred,Max Cred,BLDG,ROOM,DAYS,Start Time,End Time,Faculty Name,Avail Status,Prerequisites,Coreq,Notes,Location,Seats Available,Seat Capatcity
+BSM-200-01,SPORTS MGT PRACTICUM I,1.0,0.0,,,,,,"Kasperski, Michael",Open,,,,MC,25,25
+BSM-201-01,SPORT FACILITY & EVENT MGT,3.0,0.0,,,,,,"Rutkowski, Zachary",Open,,,,OL,30,30
+BSM-300-01,SPORTS MGT PRACTICUM II,1.0,0.0,,,,,,"Kasperski, Michael",Open,,,,MC,25,25
+BSM-301-01,SPORTS PROMOTION & SALES MGT,3.0,0.0,SWAN,205,MWF,10:30 AM,11:20 AM,"Demiris, Tiffany",Open,,,,MC,15,15
+BSM-309-01,SPORTS MARKETING,3.0,0.0,,,TT,8:30 AM,9:45 AM,"Kershner, Shaena",Open,MKT 301,,,OL,30,30
+BSM-309-02,SPORTS MARKETING,3.0,0.0,,,TT,10:00 AM,11:15 AM,"Kershner, Shaena",Open,MKT 301,,,OL,30,30
+BSM-329-01,INTRO TO SPORTS MANAGEMENT,3.0,0.0,SWAN,205,MWF,9:30 AM,10:20 AM,"Demiris, Tiffany",Open,,,crosslisted with MGT 329 01 ,MC,20,20
+BSM-329-02,INTRO TO SPORTS MANAGEMENT,3.0,0.0,SWAN,205,MWF,11:30 AM,12:20 PM,"Demiris, Tiffany",Open,,,crosslisted with MGT 329 02,MC,20,20
+BSM-400-01,SPORTS MGT MAJOR INTERNSHIP,3.0,0.0,,,,,,"Kasperski, Michael",Open,,,,MC,25,25
+BSM-401-01,STRATEGIC MGT SPORT ORGANIZ,3.0,0.0,SWAN,205,MWF,1:30 PM,2:20 PM,"Pinheiro, Ryan",Open,,,,MC,15,15

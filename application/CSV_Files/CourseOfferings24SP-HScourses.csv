@@ -1,0 +1,9 @@
+Section Name,Short Title,Min Cred,Max Cred,BLDG,ROOM,DAYS,Start Time,End Time,Faculty Name,Avail Status,Prerequisites,Coreq,Notes,Location,Seats Available,Seat Capatcity
+HS-102-01,MEDICAL TERMINOLOGY,1.0,0.0,,,,,,"Thomas, Monica",Open,,,,OL,30,30
+HS-107-01,Health-Related Fit/Wellness,3.0,0.0,FRHA,106,TTH,10:00 AM,11:15 AM,"Mills, Makennah",Open,,,,MC,30,30
+HS-107-02,Health-Related Fit/Wellness,3.0,0.0,FRHA,106,TTH,11:30 AM,12:45 PM,"Thomas, Monica",Open,,,,MC,30,30
+HS-201-01,RESEARCH METHODS IN HEALTH,3.0,0.0,FRHA,106,MWF,10:30 AM,11:20 AM,"Allen, Jeffrey",Open,,,,MC,30,30
+HS-201-55,RESEARCH METHODS IN HEALTH,3.0,0.0,,,,,,"Allen, Jeffrey",Open,,,,MC,0,0
+HS-314-01,EXERCISE PHYSIOLOGY,3.0,0.0,RECE,002,TTH,11:30 AM,12:45 PM,"Fiske, Darryn",Open,BIO 211 & BIO 212,,,MC,30,30
+HS-401-01,SEMINAR: CURRENT TOPICS IN HS,3.0,0.0,FRHA,106,MWF,8:30 AM,9:20 AM,"Richards, Stephanie",Open,,,,MC,30,30
+HS-413-01,INTERNSHIP,3.0,0.0,,,,,,"Allen, Jeffrey",Open,Junior/Senior Status ,,,MC,0,0

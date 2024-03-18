@@ -1,0 +1,6 @@
+Section Name,Short Title,Min Cred,Max Cred,BLDG,ROOM,DAYS,Start Time,End Time,Faculty Name,Avail Status,Prerequisites,Coreq,Notes,Location,Seats Available,Seat Capatcity
+PHSC-106-01,STARS AND STELLAR SYSTEMS,3.0,0.0,DELA,020,MWF,10:30 AM,11:20 AM,"Pientka, James",Open,,,,MC,36,36
+PHSC-113L-01,ASTRONOMY LABORATORY,1.0,0.0,DELA,001,M,1:30 PM,4:20 PM,"Bhardwaj, Anish",Open,,,,MC,12,12
+PHSC-113L-02,ASTRONOMY LABORATORY,1.0,0.0,DELA,001,W,1:30 PM,4:20 PM,"Bhardwaj, Anish",Open,,,,MC,12,12
+PHSC-113L-03,ASTRONOMY LABORATORY,1.0,0.0,DELA,001,F,1:30 PM,4:20 PM,"Bhardwaj, Anish",Open,,,,MC,12,12
+PHSC-115-01,ALTERNATIVE ENERGY SOURCES,3.0,0.0,DELA,020,MWF,11:30 AM,12:20 PM,"Pientka, James",Open,,,,MC,36,36

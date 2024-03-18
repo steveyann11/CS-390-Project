@@ -1,0 +1,20 @@
+Section Name,Short Title,Min Cred,Max Cred,BLDG,ROOM,DAYS,Start Time,End Time,Faculty Name,Avail Status,Prerequisites,Coreq,Notes,Location,Seats Available,Seat Capatcity
+PA-500-01,PHYSICIAN ASSISTANT PRACTICE,1.0,0.0,FRHA,107,F,1:00 PM,2:00 PM,"Young, Keith",Open,,,,MC,40,40
+PA-501-01,BASIC SCIENCE I,5.0,0.0,FRHA,107,MW,9:15 AM,10:30 AM,"Medler, Scott",Open,,,,MC,40,40
+PA-504-01,PATIENT ASSESSMENT I,3.0,0.0,FRHA,013,TTH,1:00 PM,2:30 PM,"Steighner, Kesha",Open,,,,MC,40,40
+PA-507-01,PHARMACOLOGY I,3.0,0.0,FRHA,107,MW,8:00 AM,9:00 AM,"Braxton, Derien",Open,,,,MC,40,40
+PA-510-01,CLINICAL MEDICINE I,8.0,0.0,FRHA,107,MTTHF,10:45 AM,12:00 PM,"Szymanski, Jeffrey",Open,,,,MC,40,40
+PA-513-01,MEDICAL HUMANITIES I,1.0,0.0,FRHA,107,W,10:45 AM,12:00 PM,"Ackley, Nicole",Open,,,,MC,40,40
+PA-600-01,CLINICAL PROCEDURES,4.0,0.0,FRHA,001,MTWTHF,8:00 AM,4:00 PM,"Nelson, Kathryn",Open,,,,MC,40,40
+PA-601-01,SCPE FAMILY MEDICINE,5.0,0.0,,,,,,"Ackley, Nicole",Open,,,,MC,40,40
+PA-602-01,SCPE INTERNAL MEDICINE,5.0,0.0,,,,,,"Ackley, Nicole",Open,,,,MC,40,40
+PA-603-01,SCPE PEDIATRICS,5.0,0.0,,,,,,"Ackley, Nicole",Open,,,,MC,40,40
+PA-604-01,SCPE EMERGENCY MEDICINE,5.0,0.0,,,,,,"Ackley, Nicole",Open,,,,MC,40,40
+PA-605-01,SCPE SURGERY,5.0,0.0,,,,,,"Ackley, Nicole",Open,,,,MC,40,40
+PA-606-01,SCPE WOMENS HEALTH,5.0,0.0,,,,,,"Ackley, Nicole",Open,,,,MC,40,40
+PA-607-01,SCPE BEHAVIORAL HEALTH,5.0,0.0,,,,,,"Ackley, Nicole",Open,,,,MC,40,40
+PA-608-01,SCPE SELECTIVE I,5.0,0.0,,,,,,"Ackley, Nicole",Open,,,,MC,40,40
+PA-609-01,SCPE SELECTIVE II,5.0,0.0,,,,,,"Ackley, Nicole",Open,,,,MC,40,40
+PA-610-01,MASTERS PROPOSAL,1.0,0.0,,,,,,"Young, Keith",Open,,,,MC,40,40
+PA-612-01,MASTERS PROJECT DISSEMINATION,2.0,0.0,,,,,,"Young, Keith",Open,,,,MC,40,40
+PA-613-01,SUMMATIVE REVIEW,3.0,0.0,FRHA,001,MTWTHF,8:00 AM,4:00 PM,"Nelson, Kathryn",Open,,,,MC,40,40

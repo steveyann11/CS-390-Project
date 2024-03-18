@@ -1,0 +1,13 @@
+Section Name,Short Title,Min Cred,Max Cred,BLDG,ROOM,DAYS,Start Time,End Time,Faculty Name,Avail Status,Prerequisites,Coreq,Notes,Location,Seats Available,Seat Capatcity
+SPED-230-01,INTRO TO SPECIAL EDUC.,3.0,0.0,PLAS,010,MWF,11:30 AM,12:20 PM,"Abkowitz, Pamina",Open,,,,MC,25,25
+SPED-230-02,INTRO TO SPECIAL EDUC.,3.0,0.0,PLAS,201,MWF,1:30 PM,2:20 PM,"Abkowitz, Pamina",Open,,,,MC,25,25
+SPED-340-01,CLASSR/BEHAVIORAL MGMT,3.0,0.0,PLAS,013,TTH,2:30 PM,3:45 PM,"Abkowitz, Pamina",Open,,,,MC,25,25
+SPED-350-01,INSTR DESIGN FOR ALL LEARNERS,3.0,0.0,MUPB,104,TTH,10:00 AM,11:15 AM,"Andrews, Kathryn",Open,,,,MC,25,25
+SPED-350L-01,INSTR DES FOR ALL LEARNER LAB,0.0,0.0,PLAS,011,F,9:30 AM,10:20 AM,"Andrews, Kathryn",Open,,,,MC,25,25
+SPED-430-01,Assessment Children W/ Exc,3.0,0.0,PLAS,005,TTH,11:30 AM,12:45 PM,"Abkowitz, Pamina",Open,,,,MC,25,25
+SPED-440-01,ADAPT/INSTR SPEC.NEEDS STUD.,3.0,0.0,PLAS,009,MWF,1:30 PM,2:20 PM,"Korzeniewski, Melanie",Open,,,,MC,20,20
+SPED-455-01,CURR & METH FOR SWD,3.0,0.0,PLAS,011,MWF,1:30 PM,2:20 PM,"Fisher, Anne-Claire",Open,,,,MC,25,25
+SPED-503-F1L01,EVAL & MEAS FOR INCLUS EDUC,3.0,0.0,,,,,,"Abkowitz, Pamina",Open,,,"Course meets 1/22, 2/19, 3/25, 4/22",OL,20,20
+SPED-504-71L01,COLLAB & TRANS FOR INCL EDUC,3.0,0.0,,,,,,"Fisher, Anne-Claire",Open,,,"Course meets 1/17,  2/7, 3/6 ",OL,20,20
+SPED-510-F1L01,INST DESIGN & STRATEGIES,3.0,0.0,,,,,,"Prisco, Lauren",Open,,,,OL,20,20
+SPED-590-F1L01,GRADUATE INTERNSHIP SPEC ED,3.0,0.0,,,,,,"Fisher, Anne-Claire",Open,,,,OL,20,20

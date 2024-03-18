@@ -1,0 +1,3 @@
+Section Name,Short Title,Min Cred,Max Cred,BLDG,ROOM,DAYS,Start Time,End Time,Faculty Name,Avail Status,Prerequisites,Coreq,Notes,Location,Seats Available,Seat Capatcity
+ITAL-102-01,ELEM. ITALIAN II,3.0,0.0,MUPB,103,MWF,10:30 AM,11:20 AM,"Cellini, Alva",Open,ITAL 101,,,MC,20,20
+ITAL-202-01,INTERMED ITALIAN II,3.0,0.0,MUPB,103,MWF,11:30 AM,12:20 PM,"Cellini, Alva",Open,ITAL 201,,,MC,15,15

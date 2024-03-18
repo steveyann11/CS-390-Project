@@ -1,0 +1,5 @@
+Section Name,Short Title,Min Cred,Max Cred,BLDG,ROOM,DAYS,Start Time,End Time,Faculty Name,Avail Status,Prerequisites,Coreq,Notes,Location,Seats Available,Seat Capatcity
+PHB-102-01,GLOBAL PUBLIC HEALTH,3.0,0.0,FRHA,106,MWF,1:30 PM,2:20 PM,"Allen, Jeffrey",Open,,,,MC,30,30
+PHB-201-55,BIOSTATISTIC IN PUBLIC HEALTH,3.0,0.0,,,,,,"Allen, Jeffrey",Open,,,,MC,0,0
+PHB-202-01,MKT & COMM IN PUBLIC HEALTH,3.0,0.0,FRHA,106,MWF,9:30 AM,10:20 AM,"Allen, Jeffrey",Open,,,,MC,30,30
+PHB-301-01,HEALTH PROMOTION PROGRAMMING,3.0,0.0,FRHA,106,TTH,1:00 PM,2:15 PM,"Thomas, Monica",Open,,,,MC,30,30

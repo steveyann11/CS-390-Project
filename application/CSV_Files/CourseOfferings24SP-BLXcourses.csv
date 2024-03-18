@@ -1,0 +1,4 @@
+Section Name,Short Title,Min Cred,Max Cred,BLDG,ROOM,DAYS,Start Time,End Time,Faculty Name,Avail Status,Prerequisites,Coreq,Notes,Location,Seats Available,Seat Capatcity
+BLX-210-01,BUSINESS LAW I,3.0,0.0,PLAS,006,TTH,8:30 AM,9:45 AM,"Smothermon, Charles",Open,,,,MC,24,24
+BLX-210-02,BUSINESS LAW I,3.0,0.0,PLAS,006,TTH,11:30 AM,12:45 PM,"Smothermon, Charles",Open,,,,MC,24,24
+BLX-210-03,BUSINESS LAW I,3.0,0.0,PLAS,006,TTH,1:00 PM,2:15 PM,"Smothermon, Charles",Open,,,,MC,24,24

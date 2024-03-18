@@ -1,0 +1,6 @@
+Section Name,Short Title,Min Cred,Max Cred,BLDG,ROOM,DAYS,Start Time,End Time,Faculty Name,Avail Status,Prerequisites,Coreq,Notes,Location,Seats Available,Seat Capatcity
+READ-525-F1L01,LITERACY SECONDARY SCHOOL,3.0,0.0,,,,,,"Voss, Sheri",Open,,,,OL,25,25
+READ-540-72L01,SUPRV/CUR ISS-LITERACY PROGS,3.0,0.0,,,,,,"Voss, Sheri",Open,,,,OL,25,25
+READ-580-F1L01,CLIN/PRACT CHILD/LITERACY,3.0,0.0,,,,,,"Voss, Sheri",Open,READ 570,,,OL,25,25
+READ-595-F1L01,CLINICAL PRACT/ADOLE.LIT,3.0,0.0,,,,,,"Voss, Sheri",Open,READ 570,,,OL,25,25
+READ-599-F1F01,LITERACY COACHING INTRN,0.0,0.0,,,,,,"Hauser, Rene",Open,,,,MC,50,50

@@ -1,0 +1,4 @@
+Section Name,Short Title,Min Cred,Max Cred,BLDG,ROOM,DAYS,Start Time,End Time,Faculty Name,Avail Status,Prerequisites,Coreq,Notes,Location,Seats Available,Seat Capatcity
+ARP-100-01,ACADEMIC RESTORATION PROGRAM,0.0,0.0,PLAS,202,TT,10:00 AM,10:50 AM,"Murphy, Conor",Open,,,,,12,12
+ARP-100-02,ACADEMIC RESTORATION PROGRAM,0.0,0.0,PLAS,219,TT,2:30 PM,3:20 PM,"Morabito, Nicholas",Open,,,,,12,12
+ARP-100-03,ACADEMIC RESTORATION PROGRAM,0.0,0.0,PLAS,219,WF,8:30 AM,9:20 AM,"Torre, Nicholas",Open,,,,,12,12
