@@ -7,15 +7,15 @@ cursor = conn.cursor()
 
 # Define the SQL query to randomly select 5 non-overlapping classes
 sql_query = """
-SELECT id, class_name, start_time, end_time
-FROM classes
-WHERE id IN (
-    SELECT id
-    FROM classes
-    WHERE start_time NOT IN (
-        SELECT start_time
-        FROM classes
-        GROUP BY start_time
+SELECT SectionName, ShortTitle, StartTime, EndTime
+FROM COURSEDETAILS
+WHERE SectionName IN (
+    SELECT SectionName
+    FROM COURSEDETAILS
+    WHERE StartTime NOT IN (
+        SELECT StartTime
+        FROM COURSEDETAILS
+        GROUP BY StartTime
         HAVING COUNT(*) > 1
     )
 )
@@ -32,8 +32,8 @@ selected_classes = cursor.fetchall()
 # Print the selected classes
 print("Selected Classes:")
 for class_info in selected_classes:
-    class_id, class_name, start_time, end_time = class_info
-    print(f"Class ID: {class_id}, Name: {class_name}, Start Time: {start_time}, End Time: {end_time}")
+    SectionName, ShortTitle, StartTime, EndTime = class_info
+    print(f"Class ID: {SectionName}, Name: {ShortTitle}, Start Time: {StartTime}, End Time: {EndTime}")
 
 # Close the database connection
 conn.close()
