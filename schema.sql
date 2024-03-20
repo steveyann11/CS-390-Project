@@ -11,7 +11,8 @@ major TEXT NOT NULL,
 CREATE TABLE CLASSLOCATION
 (
   BuildingName TEXT NOT NULL,
-  CampusLocation TEXT NOT NULL
+  CampusLocation TEXT NOT NULL,
+  FOREIGN KEY (SectionName) REFERENCES CLASSLOCATION(SectionName)
 );
 
 "A table for any details regarding the class"
@@ -25,10 +26,9 @@ CREATE TABLE COURSEDETAILS(
   MinCredits INT NOT NULL,
   MaxCredits INT NOT NULL,
   Prerequisites TEXT NOT NULL,
-  SeatCapatcity INT NOT NULL,
+  SeatCapacity INT NOT NULL,
   SeatsAvailable INT NOT NULL,
   FacultyName TEXT NOT NULL,
   Coreq TEXT NOT NULL,
   AvailStatus TEXT NOT NULL,
-  FOREIGN KEY (SectionName) REFERENCES CLASSLOCATION(SectionName)
 );

@@ -1,4 +1,4 @@
-"Section Name","Short Title","Min Cred","Max Cred","BLDG","ROOM","DAYS","Start Time","End Time","Faculty Name","Avail Status","Prerequisites","Coreq","Notes","Location","Seats Available","Seat Capatcity"
+"Section Name","Short Title","Min Cred","Max Cred","BLDG","ROOM","DAYS","Start Time","End Time","Faculty Name","Avail Status","Prerequisites","Coreq","Notes","Location","Seats Available","Seat Capacity"
 "ACCT-201-01","INTRO TO FINANCIAL ACCT","3.00000","0.00000","SWANSWAN","203203","MWFM","9:30 AM,10:35 AM","10:20 AM,1:05 PM","McLanahan, Michael","Open","","","","MC","1","20"
 "ACCT-201-02","INTRO TO FINANCIAL ACCT","3.00000","0.00000","SWANSWAN","203203","MWFS","11:30 AM,10:35 AM","12:20 PM,1:05 PM","McLanahan, Michael","Clsd","","","","MC","0","20"
 "ACCT-202-01","INTRO TO MANAGERIAL ACCT","3.00000","0.00000","PLASPLAS","014014","TTHT","10:00 AM,1:10 PM","11:15 AM,3:40 PM","Bysiek, Edward","Clsd","ACCT 201","","","MC","0","30"

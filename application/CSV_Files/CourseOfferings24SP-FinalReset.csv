@@ -1,4 +1,4 @@
-Section Name,Short Title,Min Cred,Max Cred,BLDG,ROOM,DAYS,Start Time,End Time,Faculty Name,Avail Status,Prerequisites,Coreq,Notes,Location,Seats Available,Seat Capatcity
+Section Name,Short Title,Min Cred,Max Cred,BLDG,ROOM,DAYS,Start Time,End Time,Faculty Name,Avail Status,Prerequisites,Coreq,Notes,Location,Seats Available,Seat Capacity
 ACCT-201-01,INTRO TO FINANCIAL ACCT,3.0,0.0,SWAN,203,M,10:35 AM,1:05 PM,"McLanahan, Michael",Open,,,,MC,20,20
 ACCT-201-02,INTRO TO FINANCIAL ACCT,3.0,0.0,SWAN,203,S,10:35 AM,1:05 PM,"McLanahan, Michael",Open,,,,MC,20,20
 ACCT-202-01,INTRO TO MANAGERIAL ACCT,3.0,0.0,PLAS,014,T,1:10 PM,3:40 PM,"Bysiek, Edward",Open,ACCT 201,,,MC,30,30

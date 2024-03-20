@@ -2,7 +2,7 @@ import sqlite3
 import random
 
 # Connect to the database
-conn = sqlite3.connect('your_database.db')
+conn = sqlite3.connect('base_database.db')
 cursor = conn.cursor()
 
 # Define the SQL query to randomly select 5 non-overlapping classes
