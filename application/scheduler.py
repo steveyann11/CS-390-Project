@@ -77,5 +77,12 @@ def index():
 def calendar():
     return render_template ('calendar.html')
 
+
+@app.route('/scheduling')
+@login_required
+def scheduling():
+    return render_template ('scheduling.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True)
