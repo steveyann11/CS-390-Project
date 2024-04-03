@@ -4,16 +4,16 @@ import sqlite3
 conn = sqlite3.connect('base_database.db')
 cursor = conn.cursor()
 
-# Convert Times to a 24-hour format as integers so they can be compared easier
-def convert_time_decimal(time):
+# Convert Times to number of minutes as integers so they can be compared easier
+def convert_time_to_minutes(time):
     hour, minute = time.split(':')
     minute, period = minute.split(' ')
     hour = int(hour)
     minute = int(minute)
     if period == 'PM' and hour != 12:
         hour += 12
-    time_decimal = hour * 60 + minute
-    return time_decimal
+    time_to_minutes = hour * 60 + minute
+    return time_to_minutes
 
 # Convert Times back to how they are displayed on the original csv file
 def revert_times(time):
@@ -29,17 +29,18 @@ def revert_times(time):
 
 # Simulated user inputs
 def personal_preferences():
-    BeginTime = 480
-    StopTime = 1020
-    days = "'MWF'"
-    location = "In Person"
+    BeginTime = '8:30 AM'
+    StopTime = '5:20 PM'
+    days = "'Any'"
+    location = "Any"
     NumClasses = 5
     return BeginTime, StopTime, days, location, NumClasses
 
 
 # Assign variables preferences and convert time format
 BeginTime, StopTime, days, location, NumClasses = personal_preferences()
-
+BeginTime = convert_time_decimal(BeginTime)
+StopTime = convert_time_decimal(StopTime)
 
 # Define the SQL query to select classes based on user preferences
 sql_query = f"""
@@ -47,8 +48,28 @@ SELECT cd.SectionName, cd.ShortTitle, cd.StartTime, cd.EndTime, cd.MeetingDays, 
 FROM COURSEDETAILS cd
 JOIN CLASSLOCATION cl ON cd.SectionName = cl.SectionName
 WHERE cd.StartTime >= '{BeginTime}' AND cd.StartTime < '{StopTime}'
-AND cd.MeetingDays = {days}
 """
+
+# Define if statements to select classes on specific days
+if days == 'MWF':
+    sql_query += " AND cl.MeetingDays = 'MWF'"
+elif days == 'TTH':
+    sql_query += " AND cl.MeetingDays = 'TTH'"
+elif days == 'MW':
+    sql_query += " AND cl.MeetingDays = 'MW'"
+elif days == 'MTWF':
+    sql_query += " AND cl.MeetingDays = 'MWTF'"
+elif days == 'M':
+    sql_query += " AND cl.MeetingDays = 'M'"
+elif days == 'T':
+    sql_query += " AND cl.MeetingDays = 'T'"
+elif days == 'W':
+    sql_query += " AND cl.MeetingDays = 'W'"
+elif days == 'TH':
+    sql_query += " AND cl.MeetingDays = 'TH'"
+elif days == 'F':
+    sql_query += " AND cl.MeetingDays = 'F'"
+
 
 # Define if statements to select classes in a specific location
 if location == "In Person":
@@ -57,13 +78,22 @@ elif location == "Online":
     sql_query += " AND cl.CampusLocation = 'OL'"
 
 # Add ORDER BY RANDOM() and LIMIT to the main query directly
-sql_query += f" ORDER BY RANDOM() LIMIT {NumClasses}"
+sql_query += " ORDER BY RANDOM()"
 
 # Execute the main query
 cursor.execute(sql_query)
 
-# Fetch the selected classes
-selected_classes = cursor.fetchall()
+# Makes sure that the classes returned don't overlap
+time_slots = []
+selected_classes = []
+for class_info in cursor.fetchall():
+    SectionName, ShortTitle, StartTime, EndTime, MeetingDays, CampusLocation = class_info
+    overlap = any(start < EndTime and end > StartTime for start, end in time_slots)
+    if not overlap:
+        selected_classes.append(class_info)
+        time_slots.append((StartTime, EndTime))
+    if len(selected_classes) >= NumClasses:
+        break
 
 # Print the selected classes
 print("Selected Classes:")
