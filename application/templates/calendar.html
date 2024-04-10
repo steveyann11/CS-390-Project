@@ -23,6 +23,35 @@
             cursor: pointer;
         }
     </style>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Semester</title>
+    </head>
+    <body>
+        <h2>Select Semester and Year:</h2>
+        <form action="#">
+            <label for="semester">Select Semester:</label>
+            <select id="semester" name="semester">
+                <option value="fall">Fall</option>
+                <option value="winter">Winter</option>
+                <option value="spring">Spring</option>
+                <option value="summer">Summer</option>
+            </select>
+            <label for="year">Select Year:</label>
+            <select id="year" name="year">
+                <!-- You can generate years dynamically or manually add them as needed -->
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+                <!-- Add more years as needed -->
+            </select>
+            <input type="submit" value="Submit">
+        </form>
+    </body>
+    </html>
+    
 </head>
 <body>
     <h2>Select a Date:</h2>
