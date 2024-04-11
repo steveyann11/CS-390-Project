@@ -32,46 +32,28 @@ def revert_times(time):
 def req_classes():
     # Rest of code depends on how we plan on getting the Users progress
     # This should take into account prereq so classes that cannot be taken are not offered.
-
+    major = 'Computer Science'
+    BeginTime = '8:30 AM'
+    StopTime = '8:30 PM'
+    NumClasses = 5
+    return major, BeginTime, StopTime, NumClasses
 
 # Assign variables for the classes
-= req_classes()
-
+major, BeginTime, StopTime, NumClasses = req_classes()
+BeginTime = convert_time_to_minutes(BeginTime)
+StopTime = convert_time_to_minutes(StopTime)
 
 # Define the SQL query to select classes based on user preferences
 sql_query = f"""
-SELECT cd.SectionName, cd.ShortTitle, cd.StartTime, cd.EndTime, cd.MeetingDays, cl.CampusLocation
+SELECT cd.SectionName, cd.ShortTitle, cd.StartTime, cd.EndTime, cd.MeetingDays, cd.Coreq, cl.CampusLocation
 FROM COURSEDETAILS cd
 JOIN CLASSLOCATION cl ON cd.SectionName = cl.SectionName
 WHERE cd.StartTime >= '{BeginTime}' AND cd.StartTime < '{StopTime}'
 """
 
-# Define if statements to select classes on specific days
-if days == 'MWF':
-    sql_query += " AND cl.MeetingDays = 'MWF'"
-elif days == 'TTH':
-    sql_query += " AND cl.MeetingDays = 'TTH'"
-elif days == 'MW':
-    sql_query += " AND cl.MeetingDays = 'MW'"
-elif days == 'MTWF':
-    sql_query += " AND cl.MeetingDays = 'MWTF'"
-elif days == 'M':
-    sql_query += " AND cl.MeetingDays = 'M'"
-elif days == 'T':
-    sql_query += " AND cl.MeetingDays = 'T'"
-elif days == 'W':
-    sql_query += " AND cl.MeetingDays = 'W'"
-elif days == 'TH':
-    sql_query += " AND cl.MeetingDays = 'TH'"
-elif days == 'F':
-    sql_query += " AND cl.MeetingDays = 'F'"
-
-
-# Define if statements to select classes in a specific location
-if location == "In Person":
-    sql_query += " AND cl.CampusLocation = 'MC'"
-elif location == "Online":
-    sql_query += " AND cl.CampusLocation = 'OL'"
+# Get Specifically classes that are in a certain major
+if major == 'Computer Science':
+    sql_query += " AND (cl.SectionName LIKE 'CS-%-%' OR cl.SectionName LIKE 'CSL-%-%')"
 
 # Add ORDER BY RANDOM() and LIMIT to the main query directly
 sql_query += " ORDER BY RANDOM()"
@@ -79,22 +61,35 @@ sql_query += " ORDER BY RANDOM()"
 # Execute the main query
 cursor.execute(sql_query)
 
-# Makes sure that the classes returned don't overlap
+# Makes sure that the classes returned don't overlap and have the proper coreqs
 time_slots = []
 selected_classes = []
 for class_info in cursor.fetchall():
-    SectionName, ShortTitle, StartTime, EndTime, MeetingDays, CampusLocation = class_info
+    SectionName, ShortTitle, StartTime, EndTime, MeetingDays, Coreq, CampusLocation = class_info
     overlap = any(start < EndTime and end > StartTime for start, end in time_slots)
     if not overlap:
         selected_classes.append(class_info)
         time_slots.append((StartTime, EndTime))
+        # Check if the class has a corequisite
+        if Coreq:
+            cursor.execute(f"""
+            SELECT cd.SectionName, cd.ShortTitle, cd.StartTime, cd.EndTime, cd.MeetingDays, cd.Coreq, cl.CampusLocation
+            FROM COURSEDETAILS cd
+            JOIN CLASSLOCATION cl ON cd.SectionName = cl.SectionName
+            WHERE cd.SectionName = '{Coreq}'""")
+            coreq_info = cursor.fetchone()
+            if coreq_info:
+                selected_classes.append(coreq_info)
+                # Update time_slots with corequisite class time
+                coreq_StartTime, coreq_EndTime = coreq_info[2], coreq_info[3]
+                time_slots.append((coreq_StartTime, coreq_EndTime))
     if len(selected_classes) >= NumClasses:
         break
 
 # Print the selected classes
 print("Selected Classes:")
 for class_info in selected_classes:
-    SectionName, ShortTitle, StartTime, EndTime, MeetingDays, CampusLocation = class_info
+    SectionName, ShortTitle, StartTime, EndTime, MeetingDays, Coreq, CampusLocation = class_info
     print(f"Class ID: {SectionName}, Name: {ShortTitle}, Start Time: {revert_times(StartTime)}, End Time: {revert_times(EndTime)}, Meeting Days: {MeetingDays}, Course Location: {CampusLocation}")
 
 # Close the database connection
