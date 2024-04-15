@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, request
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-
+import sqlite3
 
 app = Flask(__name__)
 
@@ -58,6 +58,25 @@ def login():
 
     return render_template('login.html')
 
+# Function to fetch data from the database
+def get_data_from_location():
+    conn = sqlite3.connect('../base_database.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM CLASSLOCATION')
+    data = cursor.fetchall()
+    conn.close()
+    return data
+
+
+# Function to fetch data from the database
+def get_data_from_details():
+    conn = sqlite3.connect('../base_database.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM COURSEDETAILS')
+    data = cursor.fetchall()
+    conn.close()
+    return data
+
 # Logout route
 @app.route('/logout')
 @login_required
@@ -71,19 +90,25 @@ def logout():
 def index():
     return render_template('homepage.html')
 
-
 @app.route('/calendar')
 @login_required
 def calendar():
+    data = get_data_from_location()
+    data = get_data_from_details()
     return render_template ('calendar.html')
-
 
 @app.route('/scheduling')
 @login_required
 def scheduling():
-    return render_template ('scheduling.html')
+    data = get_data_from_location()
+    data = get_data_from_details()
+    return render_template ('scheduling.html', data=data)
 
-
+@app.route('/courses')
+@login_required
+def courses():
+    data = get_data_from_details()
+    return render_template ('courses.html', data=data)
 
 
 if __name__ == '__main__':
