@@ -32,7 +32,8 @@ def revert_times(time):
 def req_classes():
     # Rest of code depends on how we plan on getting the Users progress
     # This should take into account prereq so classes that cannot be taken are not offered.
-    major = 'Computer Science'
+    major = 'Biology'
+    # major = 
     BeginTime = '8:30 AM'
     StopTime = '8:30 PM'
     NumClasses = 5
@@ -54,6 +55,8 @@ WHERE cd.StartTime >= '{BeginTime}' AND cd.StartTime < '{StopTime}'
 # Get Specifically classes that are in a certain major
 if major == 'Computer Science':
     sql_query += " AND (cl.SectionName LIKE 'CS-%-%' OR cl.SectionName LIKE 'CSL-%-%')"
+elif major == 'Biology':
+    sql_query += " AND (cl.SectionName LIKE 'BIO-%-%' OR cl.SectionName LIKE 'BIOL-%-%')"
 
 # Add ORDER BY RANDOM() and LIMIT to the main query directly
 sql_query += " ORDER BY RANDOM()"
@@ -76,11 +79,12 @@ for class_info in cursor.fetchall():
             SELECT cd.SectionName, cd.ShortTitle, cd.StartTime, cd.EndTime, cd.MeetingDays, cd.Coreq, cl.CampusLocation
             FROM COURSEDETAILS cd
             JOIN CLASSLOCATION cl ON cd.SectionName = cl.SectionName
-            WHERE cd.SectionName = '{Coreq}'""")
+            WHERE cd.SectionName = '{Coreq}'
+            AND cd.StartTime >= ? AND cd.EndTime <= ?
+            """, (StartTime, EndTime))
             coreq_info = cursor.fetchone()
             if coreq_info:
                 selected_classes.append(coreq_info)
-                # Update time_slots with corequisite class time
                 coreq_StartTime, coreq_EndTime = coreq_info[2], coreq_info[3]
                 time_slots.append((coreq_StartTime, coreq_EndTime))
     if len(selected_classes) >= NumClasses:

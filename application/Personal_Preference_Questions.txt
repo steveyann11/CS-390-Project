@@ -1,0 +1,8 @@
+Personal Preference Questions
+
+
+Start Time - (12:00 AM - 11:59 PM) Increment by hours
+End Time - (12:00 AM - 11:59 PM) Increment by hours
+Days - (M, T, W, TH, F, MT, MW, MTH, MF, TW, TTH, TF, WTH, WF, THF, MTW, MTTH, MTF, MWTH, MWF, MTHF, TWTH, TWF, TTHF, WTHF, MTWTH, MTWF, MTTHF, MWTHF, TWTHF, Any)
+Location - (Any, In Person, Online)
+Number of Classes - (Minumum-Maximum allowed)

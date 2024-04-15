@@ -97,11 +97,12 @@ for class_info in cursor.fetchall():
             SELECT cd.SectionName, cd.ShortTitle, cd.StartTime, cd.EndTime, cd.MeetingDays, cd.Coreq, cl.CampusLocation
             FROM COURSEDETAILS cd
             JOIN CLASSLOCATION cl ON cd.SectionName = cl.SectionName
-            WHERE cd.SectionName = '{Coreq}'""")
+            WHERE cd.SectionName = '{Coreq}'
+            AND cd.StartTime >= ? AND cd.EndTime <= ?
+            """, (StartTime, EndTime))
             coreq_info = cursor.fetchone()
             if coreq_info:
                 selected_classes.append(coreq_info)
-                # Update time_slots with corequisite class time
                 coreq_StartTime, coreq_EndTime = coreq_info[2], coreq_info[3]
                 time_slots.append((coreq_StartTime, coreq_EndTime))
     if len(selected_classes) >= NumClasses:
