@@ -95,7 +95,7 @@ def index():
 def calendar():
     data = get_data_from_location()
     data = get_data_from_details()
-    return render_template ('calendar.html')
+    return render_template ('calendar.html', data=data)
 
 @app.route('/scheduling')
 @login_required
