@@ -31,11 +31,10 @@ def revert_times(time):
 def personal_preferences():
     BeginTime = '8:30 AM'
     StopTime = '5:20 PM'
-    days = "'Any'"
+    days = 'MWF'
     location = "Any"
     NumClasses = 5
     return BeginTime, StopTime, days, location, NumClasses
-
 
 # Assign variables preferences and convert time format
 BeginTime, StopTime, days, location, NumClasses = personal_preferences()
@@ -50,25 +49,21 @@ JOIN CLASSLOCATION cl ON cd.SectionName = cl.SectionName
 WHERE cd.StartTime >= '{BeginTime}' AND cd.StartTime < '{StopTime}'
 """
 
-# Define if statements to select classes on specific days
-if days == 'MWF':
-    sql_query += " AND cl.MeetingDays = 'MWF'"
-elif days == 'TTH':
-    sql_query += " AND cl.MeetingDays = 'TTH'"
-elif days == 'MW':
-    sql_query += " AND cl.MeetingDays = 'MW'"
-elif days == 'MTWF':
-    sql_query += " AND cl.MeetingDays = 'MWTF'"
-elif days == 'M':
-    sql_query += " AND cl.MeetingDays = 'M'"
-elif days == 'T':
-    sql_query += " AND cl.MeetingDays = 'T'"
-elif days == 'W':
-    sql_query += " AND cl.MeetingDays = 'W'"
-elif days == 'TH':
-    sql_query += " AND cl.MeetingDays = 'TH'"
-elif days == 'F':
-    sql_query += " AND cl.MeetingDays = 'F'"
+#Define if statements to select classes on specific days
+meeting_days = []
+if 'M' in days:
+    meeting_days.append("cd.MeetingDays LIKE '%M%'")
+elif 'T' in days:
+    meeting_days.append("cd.MeetingDays LIKE '%T%'")
+elif 'W' in days:
+    meeting_days.append("cd.MeetingDays LIKE '%W%'")
+elif 'TH' in days:
+    meeting_days.append("cd.MeetingDays LIKE '%TH%'")
+elif 'F' in days:
+    meeting_days.append("cd.MeetingDays LIKE '%F%'")
+# Add to query
+if meeting_days:
+    sql_query += " AND (" + " OR ".join(meeting_days) + ")"
 
 # Define if statements to select classes in a specific location
 if location == "In Person":
