@@ -1,6 +1,5 @@
-from flask import Flask, render_template
 import sqlite3
-
+import random
 
 # Connect to the database
 conn = sqlite3.connect('base_database.db')
@@ -16,34 +15,36 @@ def revert_times(time):
     return f"{hour}:{minute:02} {period}"
 
 
-def display_random_classes():
-    # Define the SQL query to randomly select 5 non-overlapping classes
-    sql_query = """
-    SELECT cd.SectionName, cd.ShortTitle, cd.StartTime, cd.EndTime, cd.MeetingDays, cl.CampusLocation
-    FROM COURSEDETAILS cd
-    JOIN CLASSLOCATION cl ON cd.SectionName = cl.SectionName
-    WHERE cd.SectionName IN (
-        SELECT SectionName
+# Define the SQL query to randomly select 5 non-overlapping classes
+sql_query = """
+SELECT cd.SectionName, cd.ShortTitle, cd.StartTime, cd.EndTime, cd.MeetingDays, cl.CampusLocation
+FROM COURSEDETAILS cd
+JOIN CLASSLOCATION cl ON cd.SectionName = cl.SectionName
+WHERE cd.SectionName IN (
+    SELECT SectionName
+    FROM COURSEDETAILS
+    WHERE EndTime NOT IN (
+        SELECT StartTime
         FROM COURSEDETAILS
-        WHERE EndTime NOT IN (
-            SELECT StartTime
-            FROM COURSEDETAILS
-            GROUP BY StartTime
-            HAVING COUNT(*) > 1
-        )
+        GROUP BY StartTime
+        HAVING COUNT(*) > 1
     )
-    ORDER BY RANDOM()
-    LIMIT 5;
-    """
+)
+ORDER BY RANDOM()
+LIMIT 5;
+"""
 
-    # Execute the query
-    cursor.execute(sql_query)
+# Execute the query
+cursor.execute(sql_query)
 
-    # Fetch the selected classes
-    random_classes = cursor.fetchall()
+# Fetch the selected classes
+selected_classes = cursor.fetchall()
 
-    # Close the database connection
-    conn.close()
+# Print the selected classes
+print("Selected Classes:")
+for class_info in selected_classes:
+    SectionName, ShortTitle, StartTime, EndTime, MeetingDays = class_info
+    print(f"Class ID: {SectionName}, Name: {ShortTitle}, Start Time: {revert_times(StartTime)}, End Time: {revert_times(EndTime)}, Meeting Days: {MeetingDays}")
 
-    # Render the template with selected classes
-    return render_template('random_classes.html', classes=random_classes)
+# Close the database connection
+conn.close()

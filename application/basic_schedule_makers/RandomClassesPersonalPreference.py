@@ -31,7 +31,7 @@ def revert_times(time):
 def personal_preferences():
     BeginTime = '8:30 AM'
     StopTime = '5:20 PM'
-    days = 'MWF'
+    days = 'Any'
     location = "Any"
     NumClasses = 5
     return BeginTime, StopTime, days, location, NumClasses
@@ -88,18 +88,21 @@ for class_info in cursor.fetchall():
         time_slots.append((StartTime, EndTime))
         # Check if the class has a corequisite
         if Coreq:
-            cursor.execute(f"""
-            SELECT cd.SectionName, cd.ShortTitle, cd.StartTime, cd.EndTime, cd.MeetingDays, cd.Coreq, cl.CampusLocation
-            FROM COURSEDETAILS cd
-            JOIN CLASSLOCATION cl ON cd.SectionName = cl.SectionName
-            WHERE cd.SectionName = '{Coreq}'
-            AND cd.StartTime >= ? AND cd.EndTime <= ?
-            """, (StartTime, EndTime))
-            coreq_info = cursor.fetchone()
-            if coreq_info:
-                selected_classes.append(coreq_info)
-                coreq_StartTime, coreq_EndTime = coreq_info[2], coreq_info[3]
-                time_slots.append((coreq_StartTime, coreq_EndTime))
+            # Check if the corequisite is already selected
+            coreq_selected = any(coreq == class_info[0] for class_info in selected_classes)
+            if not coreq_selected:
+                cursor.execute(f"""
+                SELECT cd.SectionName, cd.ShortTitle, cd.StartTime, cd.EndTime, cd.MeetingDays, cd.Coreq, cl.CampusLocation
+                FROM COURSEDETAILS cd
+                JOIN CLASSLOCATION cl ON cd.SectionName = cl.SectionName
+                WHERE cd.SectionName = '{Coreq}'
+                AND cd.StartTime >= ? AND cd.EndTime <= ?
+                """, (StartTime, EndTime))
+                coreq_info = cursor.fetchone()
+                if coreq_info:
+                    selected_classes.append(coreq_info)
+                    coreq_StartTime, coreq_EndTime = coreq_info[2], coreq_info[3]
+                    time_slots.append((coreq_StartTime, coreq_EndTime))
     if len(selected_classes) >= NumClasses:
         break
 
