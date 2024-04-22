@@ -1,8 +1,6 @@
 from flask import Flask, render_template, request
 import sqlite3
 
-app = Flask(__name__)
-
 # Connect to the database
 conn = sqlite3.connect('base_database.db')
 cursor = conn.cursor()
@@ -43,11 +41,13 @@ def revert_times(time):
 
 # Connects the program to the webpage
 @app.route('/', methods=['GET', 'POST'])
-def display_preference_schedule():
+def display_schedule():
     if request.method == 'POST':
         # Get the personal preferences
-        BeginTime = convert_time_to_minutes(request.form['start time'])
-        StopTime = convert_time_to_minutes(request.form['end time'])
+        BeginTime = request.form['Start Time']
+        BeginTime = convert_time_to_minutes(BeginTime)
+        StopTime = request.form['End Time']
+        StopTime = convert_time_to_minutes(StopTime)
         days = request.form['Days']
         location = request.form['Location']
         NumClasses = request.form['Number of Classes']
@@ -61,20 +61,7 @@ def display_preference_schedule():
         """
 
         # Define if statements to select classes on specific days
-        meeting_days = []
-        if 'M' in days:
-            meeting_days.append("cd.MeetingDays LIKE '%M%'")
-        elif 'T' in days:
-            meeting_days.append("cd.MeetingDays LIKE '%T%'")
-        elif 'W' in days:
-            meeting_days.append("cd.MeetingDays LIKE '%W%'")
-        elif 'TH' in days:
-            meeting_days.append("cd.MeetingDays LIKE '%TH%'")
-        elif 'F' in days:
-            meeting_days.append("cd.MeetingDays LIKE '%F%'")
-        # Add to query
-        if meeting_days:
-            sql_query += " AND (" + " OR ".join(meeting_days) + ")"
+
 
         # Define if statements to select classes in a specific location
         if location == "In Person":
@@ -82,6 +69,8 @@ def display_preference_schedule():
         elif location == "Online":
             sql_query += " AND cl.CampusLocation = 'OL'"
         
+        # Add ORDER BY RANDOM() to the main query directly
+        sql_query += " ORDER BY RANDOM()"
 
         # Execute query
         cursor.execute(sql_query)
@@ -113,13 +102,4 @@ def display_preference_schedule():
             if len(selected_classes) >= NumClasses: # Acts as the limit for amount of classes
                 break
 
-        # Display the schedule
-        return render_template('schedule.html', classes=selected_classes)
-
-    # If method is GET or form not submitted yet, render the form
-    return render_template('preferences.html')
-
-if __name__ == '__main__':
-    app.run(debug=True)
-
-
+        # Display the generated classes
