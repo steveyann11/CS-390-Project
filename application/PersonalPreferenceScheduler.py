@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 import sqlite3
 
+app = Flask(__name__)
 
 # Connect to the database
 conn = sqlite3.connect('base_database.db')
@@ -45,10 +46,8 @@ def revert_times(time):
 def display_preference_schedule():
     if request.method == 'POST':
         # Get the personal preferences
-        BeginTime = request.form['start time']
-        BeginTime = convert_time_to_minutes(BeginTime)
-        StopTime = request.form['end time']
-        StopTime = convert_time_to_minutes(StopTime)
+        BeginTime = convert_time_to_minutes(request.form['start time'])
+        StopTime = convert_time_to_minutes(request.form['end time'])
         days = request.form['Days']
         location = request.form['Location']
         NumClasses = request.form['Number of Classes']
@@ -83,8 +82,6 @@ def display_preference_schedule():
         elif location == "Online":
             sql_query += " AND cl.CampusLocation = 'OL'"
         
-        # Add ORDER BY RANDOM() to the main query directly
-        sql_query += " ORDER BY RANDOM()"
 
         # Execute query
         cursor.execute(sql_query)
@@ -117,5 +114,12 @@ def display_preference_schedule():
                 break
 
         # Display the schedule
-        
+        return render_template('schedule.html', classes=selected_classes)
+
+    # If method is GET or form not submitted yet, render the form
+    return render_template('preferences.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
 
