@@ -23,9 +23,6 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="file:///C:/CS-390/myproject/myproject-github/CS-390-Project/application/templates/homepage.html">Home</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Resources
@@ -36,9 +33,6 @@
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="#">Something else here</a></li>
                 </ul>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="file:///C:/CS-390/myproject/myproject-github/CS-390-Project/application/templates/login.html">Login</a>
@@ -176,5 +170,20 @@
         </tr>
         <!-- Add more rows for each hour or event -->
     </table>
+</body>
+</body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Schedule</title>
+</head>
+<body>
+    <h1>Random Class Generator</h1>
+    <form action="/calendar" method="post">
+        <button type="submit">Generate Schedule</button>
+    </form>
+    {% if result %}
+        <p>Result: {{ result }}</p>
+    {% endif %}
 </body>
 </html>

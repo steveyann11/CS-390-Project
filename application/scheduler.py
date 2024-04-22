@@ -90,12 +90,27 @@ def logout():
 def index():
     return render_template('homepage.html')
 
-@app.route('/calendar')
+@app.route('/calendar', methods=['GET', 'POST'])
 @login_required
 def calendar():
-    data = get_data_from_location()
-    data = get_data_from_details()
-    return render_template ('calendar.html', data=data)
+    if request.method == 'POST':
+        result = run_randomscheduler()
+        data = get_data_from_location()  # assuming you still need to load this data
+        data.update(get_data_from_details())  # assuming these functions return dictionaries
+        return render_template('calendar.html', data=data, result=result)
+    else:
+        data = get_data_from_location()
+        data.update(get_data_from_details())
+        return render_template('calendar.html', data=data)
+def run_randomscheduler():
+    process = subprocess.run(['python', 'RandomScheduler.py'], capture_output=True, text=True)
+    output = process.stdout
+    error = process.stderr
+    if process.returncode == 0:
+        return f'Script output: {output}'
+    else:
+        return f'An error occurred: {error}'
+
 
 @app.route('/scheduling')
 @login_required
