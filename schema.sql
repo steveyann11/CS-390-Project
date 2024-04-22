@@ -3,7 +3,7 @@ CREATE TABLE user(
 Userid INTEGER PRIMARY KEY AUTOINCREMENT,
 username TEXT UNIQUE NOT NULL,
 password TEXT NOT NULL,
-major TEXT NOT NULL,
+major TEXT NOT NULL
 );
 
 "Based off the csv file"
@@ -30,5 +30,5 @@ CREATE TABLE COURSEDETAILS(
   SeatsAvailable INT NOT NULL,
   FacultyName TEXT NOT NULL,
   Coreq TEXT NOT NULL,
-  AvailStatus TEXT NOT NULL,
+  AvailStatus TEXT NOT NULL
 );
