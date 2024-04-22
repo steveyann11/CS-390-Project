@@ -1,8 +1,6 @@
 from flask import Flask, render_template
 import sqlite3
 
-# Create an instance of the Flask class
-app = Flask(__name__)
 
 # Connect to the database
 conn = sqlite3.connect('base_database.db')
@@ -17,8 +15,7 @@ def revert_times(time):
         hour -= 12
     return f"{hour}:{minute:02} {period}"
 
-# Define a route to display selected classes
-@app.route('/')
+
 def display_random_classes():
     # Define the SQL query to randomly select 5 non-overlapping classes
     sql_query = """
@@ -50,7 +47,3 @@ def display_random_classes():
 
     # Render the template with selected classes
     return render_template('random_classes.html', classes=random_classes)
-
-if __name__ == '__main__':
-    # Run the Flask app
-    app.run(debug=True)
