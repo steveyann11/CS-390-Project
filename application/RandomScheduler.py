@@ -43,8 +43,8 @@ selected_classes = cursor.fetchall()
 # Print the selected classes
 print("Selected Classes:")
 for class_info in selected_classes:
-    SectionName, ShortTitle, StartTime, EndTime, MeetingDays = class_info
-    print(f"Class ID: {SectionName}, Name: {ShortTitle}, Start Time: {revert_times(StartTime)}, End Time: {revert_times(EndTime)}, Meeting Days: {MeetingDays}")
+    SectionName, ShortTitle, StartTime, EndTime, MeetingDays, CampusLocation = class_info
+    print(f"Class ID: {SectionName}, Name: {ShortTitle}, Start Time: {revert_times(StartTime)}, End Time: {revert_times(EndTime)}, Meeting Days: {MeetingDays}, Course Location: {CampusLocation}")
 
 # Close the database connection
 conn.close()
