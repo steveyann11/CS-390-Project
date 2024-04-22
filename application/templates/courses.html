@@ -1,5 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <!-- Your head content here -->
+</head>
+<body>
+    <h1>Course Details</h1>
+    <table>
+        <thead>
+            <!-- Table headers here -->
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr>
+                <!-- Table cells for each column of your data -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
 
 <head>
     <meta charset="UTF-8">
@@ -7,7 +25,7 @@
     <title>Display Data</title>
 </head>
 <body>
-    <h1>Course Details</h1>
+    <h1>Data from Database</h1>
     <ul>
         {% for row in data %}
             <li>{{ row }}</li>
