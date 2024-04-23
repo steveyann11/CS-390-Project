@@ -31,7 +31,7 @@ def revert_times(time):
 def personal_preferences():
     BeginTime = '8:30 AM'
     StopTime = '5:20 PM'
-    days = 'Any'
+    days = 'MWF'
     location = "Any"
     NumClasses = 5
     return BeginTime, StopTime, days, location, NumClasses
@@ -41,70 +41,68 @@ BeginTime, StopTime, days, location, NumClasses = personal_preferences()
 BeginTime = convert_time_to_minutes(BeginTime)
 StopTime = convert_time_to_minutes(StopTime)
 
-# Define the SQL query to select classes based on user preferences and their corequisites
-sql_query = f"""
-SELECT cd.SectionName, cd.ShortTitle, cd.StartTime, cd.EndTime, cd.MeetingDays, cd.Coreq, cl.CampusLocation
-FROM COURSEDETAILS cd
-JOIN CLASSLOCATION cl ON cd.SectionName = cl.SectionName
-WHERE cd.StartTime >= '{BeginTime}' AND cd.StartTime < '{StopTime}'
-"""
+# Define the SQL query to select classes based on user preferences
+def select_classes(cursor, begin_time, stop_time, days, location):
+    sql_query = f"""
+    SELECT cd.SectionName, cd.ShortTitle, cd.StartTime, cd.EndTime, cd.MeetingDays, cd.Coreq, cl.CampusLocation
+    FROM COURSEDETAILS cd
+    JOIN CLASSLOCATION cl ON cd.SectionName = cl.SectionName
+    WHERE cd.StartTime >= '{begin_time}' AND cd.StartTime < '{stop_time}'
+    """
+    
+    # Define if statements to select classes on specific days
+    meeting_days = []
+    if 'M' in days:
+        meeting_days.append("cd.MeetingDays LIKE '%M%'")
+    if 'T' in days:
+        meeting_days.append("cd.MeetingDays LIKE '%T%'")
+    if 'W' in days:
+        meeting_days.append("cd.MeetingDays LIKE '%W%'")
+    if 'TH' in days:
+        meeting_days.append("cd.MeetingDays LIKE '%TH%'")
+    if 'F' in days:
+        meeting_days.append("cd.MeetingDays LIKE '%F%'")
+    # Add to query
+    if meeting_days:
+        sql_query += " AND (" + " OR ".join(meeting_days) + ")"
 
-#Define if statements to select classes on specific days
-meeting_days = []
-if 'M' in days:
-    meeting_days.append("cd.MeetingDays LIKE '%M%'")
-elif 'T' in days:
-    meeting_days.append("cd.MeetingDays LIKE '%T%'")
-elif 'W' in days:
-    meeting_days.append("cd.MeetingDays LIKE '%W%'")
-elif 'TH' in days:
-    meeting_days.append("cd.MeetingDays LIKE '%TH%'")
-elif 'F' in days:
-    meeting_days.append("cd.MeetingDays LIKE '%F%'")
-# Add to query
-if meeting_days:
-    sql_query += " AND (" + " OR ".join(meeting_days) + ")"
+    # Define if statements to select classes in a specific location
+    if location == "In Person":
+        sql_query += " AND cl.CampusLocation = 'MC'"
+    elif location == "Online":
+        sql_query += " AND cl.CampusLocation = 'OL'"
 
-# Define if statements to select classes in a specific location
-if location == "In Person":
-    sql_query += " AND cl.CampusLocation = 'MC'"
-elif location == "Online":
-    sql_query += " AND cl.CampusLocation = 'OL'"
-
-# Add ORDER BY RANDOM() and LIMIT to the main query directly
-sql_query += " ORDER BY RANDOM()"
-
-# Execute the main query
-cursor.execute(sql_query)
+    # Add ORDER BY RANDOM() and LIMIT to the main query directly
+    sql_query += " ORDER BY RANDOM()"
+    
+    cursor.execute(sql_query)
+    return cursor.fetchone()
 
 # Makes sure that the classes returned don't overlap and have the proper coreqs
-time_slots = []
 selected_classes = []
-for class_info in cursor.fetchall():
-    SectionName, ShortTitle, StartTime, EndTime, MeetingDays, Coreq, CampusLocation = class_info
-    overlap = any(start < EndTime and end > StartTime for start, end in time_slots)
-    if not overlap:
-        selected_classes.append(class_info)
-        time_slots.append((StartTime, EndTime))
-        # Check if the class has a corequisite
-        if Coreq:
-            # Check if the corequisite is already selected
-            coreq_selected = any(coreq == class_info[0] for class_info in selected_classes)
-            if not coreq_selected:
+time_slots = []
+for _ in range(NumClasses):
+    selected_class = select_classes(cursor, BeginTime, StopTime, days, location)
+    if selected_class:
+        SectionName, _, StartTime, EndTime, _, Coreq, _ = selected_class
+        overlap = any(start < EndTime and end > StartTime for start, end in time_slots)
+        if not overlap:
+            selected_classes.append(selected_class)
+            time_slots.append((StartTime, EndTime))
+            if Coreq:
                 cursor.execute(f"""
                 SELECT cd.SectionName, cd.ShortTitle, cd.StartTime, cd.EndTime, cd.MeetingDays, cd.Coreq, cl.CampusLocation
                 FROM COURSEDETAILS cd
                 JOIN CLASSLOCATION cl ON cd.SectionName = cl.SectionName
-                WHERE cd.SectionName = '{Coreq}'
-                AND cd.StartTime >= ? AND cd.EndTime <= ?
-                """, (StartTime, EndTime))
+                WHERE cd.SectionName = ?
+                """, (Coreq,))
                 coreq_info = cursor.fetchone()
                 if coreq_info:
-                    selected_classes.append(coreq_info)
                     coreq_StartTime, coreq_EndTime = coreq_info[2], coreq_info[3]
-                    time_slots.append((coreq_StartTime, coreq_EndTime))
-    if len(selected_classes) >= NumClasses:
-        break
+                    coreq_overlap = any(start < coreq_EndTime and end > coreq_StartTime for start, end in time_slots)
+                    if not coreq_overlap:
+                        selected_classes.append(coreq_info)
+                        time_slots.append((coreq_StartTime, coreq_EndTime))
 
 # Print the selected classes
 print("Selected Classes:")
@@ -114,3 +112,4 @@ for class_info in selected_classes:
 
 # Close the database connection
 conn.close()
+

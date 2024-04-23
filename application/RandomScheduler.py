@@ -1,3 +1,4 @@
+from flask import render_template
 import sqlite3
 import random
 
@@ -48,3 +49,17 @@ for class_info in selected_classes:
 
 # Close the database connection
 conn.close()
+
+result = []
+for class_info in selected_classes:
+    SectionName, ShortTitle, StartTime, EndTime, MeetingDays, CampusLocation = class_info
+    formatted_class_info = (
+        SectionName,
+        ShortTitle,
+        revert_times(StartTime),
+        revert_times(EndTime),
+        MeetingDays,
+        CampusLocation
+    )
+    result.append(formatted_class_info)
+
