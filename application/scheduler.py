@@ -129,7 +129,7 @@ def courses():
 def preference_schedule_maker():
     return render_template('preference_schedule_maker.html')
 
-@app.route('/preference_schedule', methods=['GET', 'POST'])
+@app.route('/preference_schedule', methods=['POST'])
 def preference_schedule():
     if request.method == 'POST':
         return render_template('preference_schedule.html')
