@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preferences</title>
+</head>
+<body>
+    <h1>Preferences</h1>
+    <form action="/preference_schedule" method="post"> <!-- Replace "/" with your form submission URL -->
+        <label for="StartTime">Start Time:</label>
+        <select id="StartTime" name="StartTime">
+            <option value="8:00 AM">8:00 AM</option>
+            <option value="9:00 AM">9:00 AM</option>
+            <option value="10:00 AM">10:00 AM</option>
+            <option value="11:00 AM">11:00 AM</option>
+            <option value="12:00 PM">12:00 PM</option>
+            <option value="1:00 PM">1:00 PM</option>
+            <option value="2:00 PM">2:00 PM</option>
+            <option value="3:00 PM">3:00 PM</option>
+            <option value="4:00 PM">4:00 PM</option>
+            <option value="5:00 PM">5:00 PM</option>
+            <option value="6:00 PM">6:00 PM</option>
+            <option value="7:00 PM">7:00 PM</option>
+        </select>
+        <br><br>
+
+        <label for="EndTime">End Time:</label>
+        <select id="EndTime" name="EndTime">
+            <option value="8:00 AM">8:00 AM</option>
+            <option value="9:00 AM">9:00 AM</option>
+            <option value="10:00 AM">10:00 AM</option>
+            <option value="11:00 AM">11:00 AM</option>
+            <option value="12:00 PM">12:00 PM</option>
+            <option value="1:00 PM">1:00 PM</option>
+            <option value="2:00 PM">2:00 PM</option>
+            <option value="3:00 PM">3:00 PM</option>
+            <option value="4:00 PM">4:00 PM</option>
+            <option value="5:00 PM">5:00 PM</option>
+            <option value="6:00 PM">6:00 PM</option>
+            <option value="7:00 PM">7:00 PM</option>
+            <option value="8:00 PM">8:00 PM</option>
+            <option value="9:00 PM">9:00 PM</option>
+            <option value="10:00 PM">10:00 PM</option>
+            <option value="11:00 PM">11:00 PM</option>
+        </select>
+        <br><br>
+    
+        <label for="Days">Days:</label>
+        <input type="checkbox" id="Monday" name="Days" value="M">
+        <label for="Monday">Monday</label>
+        <input type="checkbox" id="Tuesday" name="Days" value="T">
+        <label for="Tuesday">Tuesday</label>
+        <input type="checkbox" id="Wednesday" name="Days" value="W">
+        <label for="Wednesday">Wednesday</label>
+        <input type="checkbox" id="Thursday" name="Days" value="TH">
+        <label for="Thursday">Thursday</label>
+        <input type="checkbox" id="Friday" name="Days" value="F">
+        <label for="Friday">Friday</label>
+        <br><br>
+
+        <label for="Location">Location:</label>
+        <select id="Location" name="Location">
+            <option value="Any">Any</option>
+            <option value="In Person">In Person</option>
+            <option value="Online">Online</option>
+        </select>
+        <br><br>
+    
+        <label for="NumberOfClasses">Number of Classes:</label>
+        <select id="NumberOfClasses" name="NumberOfClasses">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+        <br><br>
+    
+        <input type="submit" value="Generate Schedule">
+    </form>
+</body>
+</html>

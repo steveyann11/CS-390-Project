@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request
 import sqlite3
 
+app = Flask(__name__)
+
 # Connect to the database
 conn = sqlite3.connect('base_database.db')
 cursor = conn.cursor()
@@ -39,8 +41,9 @@ def revert_times(time):
             hour = hour - 12
     return f"{hour}:{minute:02} {period}"
 
+
 # Connects the program to the webpage
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/preference_schedule', methods=['GET', 'POST'])
 def display_schedule():
     if request.method == 'POST':
         # Get the personal preferences
@@ -50,7 +53,7 @@ def display_schedule():
         StopTime = convert_time_to_minutes(StopTime)
         days = request.form['Days']
         location = request.form['Location']
-        NumClasses = request.form['Number of Classes']
+        NumClasses = int(request.form['Number of Classes'])
 
         # Create a query that will be used to gather the appropriate classes based on the users preferences
         sql_query = f"""
@@ -61,7 +64,20 @@ def display_schedule():
         """
 
         # Define if statements to select classes on specific days
-
+        meeting_days = []
+        if 'M' in days:
+            meeting_days.append("cd.MeetingDays LIKE '%M%'")
+        if 'T' in days:
+            meeting_days.append("cd.MeetingDays LIKE '%T%'")
+        if 'W' in days:
+            meeting_days.append("cd.MeetingDays LIKE '%W%'")
+        if 'TH' in days:
+            meeting_days.append("cd.MeetingDays LIKE '%TH%'")
+        if 'F' in days:
+            meeting_days.append("cd.MeetingDays LIKE '%F%'")
+        # Add to query
+        if meeting_days:
+            sql_query += " AND (" + " OR ".join(meeting_days) + ")"
 
         # Define if statements to select classes in a specific location
         if location == "In Person":
@@ -103,3 +119,9 @@ def display_schedule():
                 break
 
         # Display the generated classes
+        return render_template('preference_schedule.html', classes=selected_classes)
+    else:
+        return render_template('preferences.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)
