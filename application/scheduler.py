@@ -89,7 +89,7 @@ def logout():
 @login_required
 def index():
     return render_template('homepage.html')
-
+# Connects calendar page to database for schedule generation
 @app.route('/calendar', methods=['GET', 'POST'])
 @login_required
 def calendar():
