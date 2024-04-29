@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Prefence Schedule</title>
+</head>
+<body>
+    <h1>Personal Prefence Schedule</h1>
+    <ul>
+        {% for class_info in classes %}
+        <li>Class ID: {{ class_info[0] }}, Name: {{ class_info[1] }}, Start Time: {{ class_info[2] }}, End Time: {{ class_info[3] }}, Meeting Days: {{ class_info[4] }}, Course Location: {{ class_info[6] }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
