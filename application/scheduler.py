@@ -125,6 +125,16 @@ def courses():
     data = get_data_from_details()
     return render_template ('courses.html', data=data)
 
+@app.route('/preference_schedule_maker')
+def preference_schedule_maker():
+    return render_template('preference_schedule_maker.html')
+
+@app.route('/preference_schedule', methods=['GET', 'POST'])
+def preference_schedule():
+    if request.method == 'POST':
+        return render_template('preference_schedule.html')
+    else:
+        return render_template('preference_schedule.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
