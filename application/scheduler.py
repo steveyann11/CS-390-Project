@@ -86,12 +86,12 @@ def logout():
 
 # Protected route
 @app.route('/')
-@login_required
+#@login_required
 def index():
     return render_template('homepage.html')
 # Connects calendar page to database for schedule generation
 @app.route('/calendar', methods=['GET', 'POST'])
-@login_required
+#@login_required
 def calendar():
     if request.method == 'POST':
         result = run_randomscheduler()
@@ -100,7 +100,7 @@ def calendar():
         return render_template('calendar.html', data=data, result=result)
     else:
         data = get_data_from_location()
-        data.update(get_data_from_details())
+#        data.update(get_data_from_details())
         return render_template('calendar.html', data=data)
 def run_randomscheduler():
     process = subprocess.run(['python', 'RandomScheduler.py'], capture_output=True, text=True)
@@ -113,14 +113,14 @@ def run_randomscheduler():
 
 
 @app.route('/scheduling')
-@login_required
+#@login_required
 def scheduling():
     data = get_data_from_location()
     data = get_data_from_details()
     return render_template ('scheduling.html', data=data)
 
 @app.route('/courses')
-@login_required
+#@login_required
 def courses():
     data = get_data_from_details()
     return render_template ('courses.html', data=data)
@@ -135,6 +135,14 @@ def preference_schedule():
         return render_template('preference_schedule.html')
     else:
         return render_template('preference_schedule.html')
+def run_preferencescheduler():
+    process = subprocess.run(['python', 'PersonalPreferenceScheduler.py'], capture_output=True, text=True)
+    output = process.stdout
+    error = process.stderr
+    if process.returncode == 0:
+        return f'Script output: {output}'
+    else:
+        return f'An error occurred: {error}'
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -119,7 +119,7 @@ def display_schedule():
                 break
 
         # Display the generated classes
-        return render_template('preference_schedule.html', classes=selected_classes)
+        return render_template('preference_schedule.html', selected_classes)
     else:
         return render_template('preferences.html')
 
