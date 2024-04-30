@@ -97,7 +97,7 @@ def calendar():
     if request.method == 'POST':
         result = run_randomscheduler()
         data = get_data_from_location()  # assuming you still need to load this data
-        data.update(get_data_from_details())  # assuming these functions return dictionaries
+#        data.update(get_data_from_details())  # assuming these functions return dictionaries
         return render_template('calendar.html', data=data, result=result)
     else:
         data = get_data_from_location()
