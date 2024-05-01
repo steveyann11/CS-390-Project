@@ -2,7 +2,7 @@ import sqlite3
 import random
 
 # Connect to the database
-conn = sqlite3.connect('base_database.db')
+conn = sqlite3.connect('../base_database.db')
 cursor = conn.cursor()
 
 # Convert Times back to how they are displayed on the original csv file
