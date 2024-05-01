@@ -4,7 +4,7 @@ import sqlite3
 app = Flask(__name__)
 
 # Connect to the database
-conn = sqlite3.connect('base_database.db')
+conn = sqlite3.connect('../base_database.db')
 cursor = conn.cursor()
 
 # Functions needed in order for time to be compared and displayed properly
@@ -119,7 +119,7 @@ def display_schedule():
                 break
 
         # Display the generated classes
-        return render_template('preference_schedule.html', classes=selected_classes)
+        return render_template('preference_schedule.html', selected_classes)
     else:
         return render_template('preferences.html')
 

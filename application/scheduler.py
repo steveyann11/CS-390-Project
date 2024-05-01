@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 import sqlite3
+import subprocess
 
 app = Flask(__name__)
 
@@ -86,21 +87,21 @@ def logout():
 
 # Protected route
 @app.route('/')
-@login_required
+#@login_required
 def index():
     return render_template('homepage.html')
-
+# Connects calendar page to database for schedule generation
 @app.route('/calendar', methods=['GET', 'POST'])
-@login_required
+#@login_required
 def calendar():
     if request.method == 'POST':
         result = run_randomscheduler()
         data = get_data_from_location()  # assuming you still need to load this data
-        data.update(get_data_from_details())  # assuming these functions return dictionaries
+#        data.update(get_data_from_details())  # assuming these functions return dictionaries
         return render_template('calendar.html', data=data, result=result)
     else:
         data = get_data_from_location()
-        data.update(get_data_from_details())
+#        data.update(get_data_from_details())
         return render_template('calendar.html', data=data)
 def run_randomscheduler():
     process = subprocess.run(['python', 'RandomScheduler.py'], capture_output=True, text=True)
@@ -113,18 +114,36 @@ def run_randomscheduler():
 
 
 @app.route('/scheduling')
-@login_required
+#@login_required
 def scheduling():
     data = get_data_from_location()
     data = get_data_from_details()
     return render_template ('scheduling.html', data=data)
 
 @app.route('/courses')
-@login_required
+#@login_required
 def courses():
     data = get_data_from_details()
     return render_template ('courses.html', data=data)
 
+@app.route('/preference_schedule_maker')
+def preference_schedule_maker():
+    return render_template('preference_schedule_maker.html')
+
+@app.route('/preference_schedule', methods=['POST'])
+def preference_schedule():
+    if request.method == 'POST':
+        return render_template('preference_schedule.html')
+    else:
+        return render_template('preference_schedule.html')
+def run_preferencescheduler():
+    process = subprocess.run(['python', 'PersonalPreferenceScheduler.py'], capture_output=True, text=True)
+    output = process.stdout
+    error = process.stderr
+    if process.returncode == 0:
+        return f'Script output: {output}'
+    else:
+        return f'An error occurred: {error}'
 
 if __name__ == '__main__':
     app.run(debug=True)
