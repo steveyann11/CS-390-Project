@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-<<<<<<< HEAD
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -21,22 +20,22 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/homepage">Home</a>
+                <a class="nav-link active" aria-current="page" href="homepage.html">Home</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Resources
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="/courses">Courses</a></li>
-                    <li><a class="dropdown-item" href="/scheduling">Scheduling</a></li>
+                    <li><a class="dropdown-item" href="courses.html">Courses</a></li>
+                    <li><a class="dropdown-item" href="scheduling.html">Scheduling</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="/preference_schedule_maker">Personal Prefence Schedule Maker</a></li>
-                    <li><a class="dropdown-item" href="/preference_schedule">Personal Prefence Schedule</a></li>
-                  </ul>
+                    <li><a class="dropdown-item" href="preference_schedule_maker.html">Personal Prefence Schedule</a></li>
+                    <li><a class="dropdown-item" href="preference_schedule.html">Personal Prefence Schedule Maker</a></li>
+                </ul>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/login">Login</a>
+                <a class="nav-link active" aria-current="page" href="login.html">Login</a>
               </li>
             </ul>
             <form class="d-flex">
@@ -55,17 +54,8 @@
 
 
     <h1>Personal Prefence Schedule</h1>
-=======
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Preference Schedule</title>
-</head>
-<body>
-    <h1>Personal Preference Schedule</h1>
->>>>>>> cc7aad4a33924637559aacb8eb0f7e5c9ba47633
     <ul>
-        {% for class_info in selected_classes %}
+        {% for class_info in classes %}
         <li>Class ID: {{ class_info[0] }}, Name: {{ class_info[1] }}, Start Time: {{ class_info[2] }}, End Time: {{ class_info[3] }}, Meeting Days: {{ class_info[4] }}, Course Location: {{ class_info[6] }}</li>
         {% endfor %}
     </ul>
