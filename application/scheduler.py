@@ -108,7 +108,7 @@ def run_randomscheduler():
     output = process.stdout
     error = process.stderr
     if process.returncode == 0:
-        return f'Script output: {output}'
+        return f'Classes: {output}'
     else:
         return f'An error occurred: {error}'
 
@@ -133,17 +133,127 @@ def preference_schedule_maker():
 @app.route('/preference_schedule', methods=['POST'])
 def preference_schedule():
     if request.method == 'POST':
-        return render_template('preference_schedule.html')
+        selected_classes = display_schedule()
+        return render_template('preference_schedule.html', selected_classes=selected_classes)
     else:
         return render_template('preference_schedule.html')
-def run_preferencescheduler():
-    process = subprocess.run(['python', 'PersonalPreferenceScheduler.py'], capture_output=True, text=True)
-    output = process.stdout
-    error = process.stderr
-    if process.returncode == 0:
-        return f'Script output: {output}'
-    else:
-        return f'An error occurred: {error}'
+    
+# Functions needed in order for time to be compared and displayed properly
+def convert_time_to_minutes(time):
+    """
+    Convert Times to number of minutes as integers so they can be compared easier
+
+    Input: Time in a string format
+    Output: Integer representing the time as minutes
+    """
+    hour, minute = time.split(':')
+    minute, period = minute.split(' ')
+    hour = int(hour)
+    minute = int(minute)
+    if period == 'PM' and hour != 12:
+        hour += 12
+    time_to_minutes = hour * 60 + minute
+    return time_to_minutes
+def revert_times(time):
+    """
+    Convert Times back to string so they can be displayed in the normal format
+    
+    Input: Integer value representing the time as minutes
+    Output: String representing time in the 'hour:minute period' format
+    """
+    hour = time // 60
+    minute = time % 60
+    if hour < 12:
+        period = 'AM'
+    elif hour >= 12:
+        period = 'PM'
+        if hour > 12:
+            hour = hour - 12
+    return f"{hour}:{minute:02} {period}"
+def display_schedule():
+    conn = sqlite3.connect('../base_database.db')
+    cursor = conn.cursor()
+    if request.method == 'POST':
+        # Get the personal preferences
+        BeginTime = request.form['StartTime']
+        BeginTime = convert_time_to_minutes(BeginTime)
+        StopTime = request.form['EndTime']
+        StopTime = convert_time_to_minutes(StopTime)
+        days = request.form.getlist('Days')  # Use getlist to get multiple checkbox values
+        location = request.form['Location']
+        NumClasses = int(request.form['NumberOfClasses'])
+
+        # Create a query that will be used to gather the appropriate classes based on the users preferences
+        sql_query = f"""
+        SELECT cd.SectionName, cd.ShortTitle, cd.StartTime, cd.EndTime, cd.MeetingDays, cd.Coreq, cl.CampusLocation
+        FROM COURSEDETAILS cd
+        JOIN CLASSLOCATION cl ON cd.SectionName = cl.SectionName
+        WHERE cd.StartTime >= '{BeginTime}' AND cd.StartTime < '{StopTime}'
+        """
+
+        # Define if statements to select classes on specific days
+        meeting_days = []
+        if 'M' in days:
+            meeting_days.append("cd.MeetingDays LIKE '%M%'")
+        if 'T' in days:
+            meeting_days.append("cd.MeetingDays LIKE '%T%'")
+        if 'W' in days:
+            meeting_days.append("cd.MeetingDays LIKE '%W%'")
+        if 'TH' in days:
+            meeting_days.append("cd.MeetingDays LIKE '%TH%'")
+        if 'F' in days:
+            meeting_days.append("cd.MeetingDays LIKE '%F%'")
+        # Add to query
+        if meeting_days:
+            sql_query += " AND (" + " OR ".join(meeting_days) + ")"
+
+        # Define if statements to select classes in a specific location
+        if location == "In Person":
+            sql_query += " AND cl.CampusLocation = 'MC'"
+        elif location == "Online":
+            sql_query += " AND cl.CampusLocation = 'OL'"
+        
+        # Add ORDER BY RANDOM() to the main query directly
+        sql_query += " ORDER BY RANDOM()"
+
+        # Execute query
+        cursor.execute(sql_query)
+        all_classes = cursor.fetchall()  # Fetch all classes from the database
+
+        # Makes sure that the classes returned don't overlap and have the proper coreqs
+        time_slots = []
+        selected_classes = []
+        for class_info in all_classes:  # Iterate over fetched classes
+            SectionName, ShortTitle, StartTime, EndTime, MeetingDays, Coreq, CampusLocation = class_info
+            overlap = any(start < EndTime and end > StartTime for start, end in time_slots)
+            if not overlap:
+                # Revert times back to normal format before adding to selected classes
+                StartTime_normal = revert_times(StartTime)
+                EndTime_normal = revert_times(EndTime)
+                class_info_with_normal_time = (SectionName, ShortTitle, StartTime_normal, EndTime_normal, MeetingDays, Coreq, CampusLocation)
+                selected_classes.append(class_info_with_normal_time)
+                time_slots.append((StartTime, EndTime))
+                # Check if the class has a corequisite
+                if Coreq:
+                    cursor.execute(f"""
+                    SELECT cd.SectionName, cd.ShortTitle, cd.StartTime, cd.EndTime, cd.MeetingDays, cd.Coreq, cl.CampusLocation
+                    FROM COURSEDETAILS cd
+                    JOIN CLASSLOCATION cl ON cd.SectionName = cl.SectionName
+                    WHERE cd.SectionName = ? AND cd.StartTime >= ? AND cd.EndTime <= ?
+                    """, (Coreq, StartTime, EndTime))
+                    coreq_info = cursor.fetchone()
+                    if coreq_info:
+                        coreq_StartTime, coreq_EndTime = coreq_info[2], coreq_info[3]
+                        StartTime_coreq_normal = revert_times(coreq_StartTime)
+                        EndTime_coreq_normal = revert_times(coreq_EndTime)
+                        coreq_info_with_normal_time = (coreq_info[0], coreq_info[1], StartTime_coreq_normal, EndTime_coreq_normal, coreq_info[4], coreq_info[5], coreq_info[6])
+                        selected_classes.append(coreq_info_with_normal_time)
+                        time_slots.append((coreq_StartTime, coreq_EndTime))
+            if len(selected_classes) >= NumClasses: # Acts as the limit for amount of classes
+                break
+
+        # Display the generated classes
+        return selected_classes
 
 if __name__ == '__main__':
     app.run(debug=True)

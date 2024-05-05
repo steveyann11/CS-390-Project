@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request
 import sqlite3
 
-app = Flask(__name__)
 
 # Connect to the database
 conn = sqlite3.connect('../base_database.db')
@@ -43,15 +42,15 @@ def revert_times(time):
 
 
 # Connects the program to the webpage
-@app.route('/preference_schedule', methods=['GET', 'POST'])
+@app.route('/preference_schedule', methods=['POST'])
 def display_schedule():
     if request.method == 'POST':
         # Get the personal preferences
-        BeginTime = request.form['Start Time']
+        BeginTime = request.form['StartTime']
         BeginTime = convert_time_to_minutes(BeginTime)
-        StopTime = request.form['End Time']
+        StopTime = request.form['EndTime']
         StopTime = convert_time_to_minutes(StopTime)
-        days = request.form['Days']
+        days = request.form.getlist('Days')  # Use getlist to get multiple checkbox values
         location = request.form['Location']
         NumClasses = int(request.form['Number of Classes'])
 
@@ -90,12 +89,12 @@ def display_schedule():
 
         # Execute query
         cursor.execute(sql_query)
-        selected_classes = cursor.fetchall()
+        all_classes = cursor.fetchall()  # Fetch all classes from the database
 
         # Makes sure that the classes returned don't overlap and have the proper coreqs
         time_slots = []
         selected_classes = []
-        for class_info in cursor.fetchall():
+        for class_info in all_classes:  # Iterate over fetched classes
             SectionName, ShortTitle, StartTime, EndTime, MeetingDays, Coreq, CampusLocation = class_info
             overlap = any(start < EndTime and end > StartTime for start, end in time_slots)
             if not overlap:
@@ -107,9 +106,8 @@ def display_schedule():
                     SELECT cd.SectionName, cd.ShortTitle, cd.StartTime, cd.EndTime, cd.MeetingDays, cd.Coreq, cl.CampusLocation
                     FROM COURSEDETAILS cd
                     JOIN CLASSLOCATION cl ON cd.SectionName = cl.SectionName
-                    WHERE cd.SectionName = '{Coreq}'
-                    AND cd.StartTime >= ? AND cd.EndTime <= ?
-                    """, (StartTime, EndTime))
+                    WHERE cd.SectionName = ? AND cd.StartTime >= ? AND cd.EndTime <= ?
+                    """, (Coreq, StartTime, EndTime))
                     coreq_info = cursor.fetchone()
                     if coreq_info:
                         selected_classes.append(coreq_info)
@@ -119,9 +117,10 @@ def display_schedule():
                 break
 
         # Display the generated classes
-        return render_template('preference_schedule.html', selected_classes)
+        print(selected_classes)
+        return render_template('preference_schedule.html', selected_classes=selected_classes)
     else:
-        return render_template('preferences.html')
+        return render_template('preference_schedule_maker.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

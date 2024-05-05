@@ -4,85 +4,139 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Preferences</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-    <h1>Preferences</h1>
-    <form action="/preference_schedule" method="post"> <!-- Replace "/" with your form submission URL -->
-        <label for="StartTime">Start Time:</label>
-        <select id="StartTime" name="StartTime">
-            <option value="8:00 AM">8:00 AM</option>
-            <option value="9:00 AM">9:00 AM</option>
-            <option value="10:00 AM">10:00 AM</option>
-            <option value="11:00 AM">11:00 AM</option>
-            <option value="12:00 PM">12:00 PM</option>
-            <option value="1:00 PM">1:00 PM</option>
-            <option value="2:00 PM">2:00 PM</option>
-            <option value="3:00 PM">3:00 PM</option>
-            <option value="4:00 PM">4:00 PM</option>
-            <option value="5:00 PM">5:00 PM</option>
-            <option value="6:00 PM">6:00 PM</option>
-            <option value="7:00 PM">7:00 PM</option>
-        </select>
-        <br><br>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Resources
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="/courses">Courses</a></li>
+                  <li><a class="dropdown-item" href="/scheduling">Scheduling</a></li>
+                  <li><a class="dropdown-item" href="/calendar">Calendar</a></li>
+                  <li><a class="dropdown-item" href="/preference_schedule_maker">Personal Preferences</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/login">Login</a>
+              </li>
+            </ul>
+            <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+    </nav>
 
-        <label for="EndTime">End Time:</label>
-        <select id="EndTime" name="EndTime">
-            <option value="8:00 AM">8:00 AM</option>
-            <option value="9:00 AM">9:00 AM</option>
-            <option value="10:00 AM">10:00 AM</option>
-            <option value="11:00 AM">11:00 AM</option>
-            <option value="12:00 PM">12:00 PM</option>
-            <option value="1:00 PM">1:00 PM</option>
-            <option value="2:00 PM">2:00 PM</option>
-            <option value="3:00 PM">3:00 PM</option>
-            <option value="4:00 PM">4:00 PM</option>
-            <option value="5:00 PM">5:00 PM</option>
-            <option value="6:00 PM">6:00 PM</option>
-            <option value="7:00 PM">7:00 PM</option>
-            <option value="8:00 PM">8:00 PM</option>
-            <option value="9:00 PM">9:00 PM</option>
-            <option value="10:00 PM">10:00 PM</option>
-            <option value="11:00 PM">11:00 PM</option>
-        </select>
-        <br><br>
-    
-        <label for="Days">Days:</label>
-        <input type="checkbox" id="Monday" name="Days" value="M">
-        <label for="Monday">Monday</label>
-        <input type="checkbox" id="Tuesday" name="Days" value="T">
-        <label for="Tuesday">Tuesday</label>
-        <input type="checkbox" id="Wednesday" name="Days" value="W">
-        <label for="Wednesday">Wednesday</label>
-        <input type="checkbox" id="Thursday" name="Days" value="TH">
-        <label for="Thursday">Thursday</label>
-        <input type="checkbox" id="Friday" name="Days" value="F">
-        <label for="Friday">Friday</label>
-        <br><br>
+    <div class="container mt-5">
+        <h1>Preferences</h1>
+        <form action="/preference_schedule" method="post">
+            <label for="StartTime" class="form-label">Start Time:</label>
+            <select id="StartTime" name="StartTime" class="form-select">
+                <option value="8:00 AM">8:00 AM</option>
+                <option value="9:00 AM">9:00 AM</option>
+                <option value="10:00 AM">10:00 AM</option>
+                <option value="11:00 AM">11:00 AM</option>
+                <option value="12:00 PM">12:00 PM</option>
+                <option value="1:00 PM">1:00 PM</option>
+                <option value="2:00 PM">2:00 PM</option>
+                <option value="3:00 PM">3:00 PM</option>
+                <option value="4:00 PM">4:00 PM</option>
+                <option value="5:00 PM">5:00 PM</option>
+                <option value="6:00 PM">6:00 PM</option>
+                <option value="7:00 PM">7:00 PM</option>
+            </select>
+            <br><br>
 
-        <label for="Location">Location:</label>
-        <select id="Location" name="Location">
-            <option value="Any">Any</option>
-            <option value="In Person">In Person</option>
-            <option value="Online">Online</option>
-        </select>
-        <br><br>
-    
-        <label for="NumberOfClasses">Number of Classes:</label>
-        <select id="NumberOfClasses" name="NumberOfClasses">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-        </select>
-        <br><br>
-    
-        <input type="submit" value="Generate Schedule">
-    </form>
+            <label for="EndTime" class="form-label">End Time:</label>
+            <select id="EndTime" name="EndTime" class="form-select">
+                <option value="8:00 AM">8:00 AM</option>
+                <option value="9:00 AM">9:00 AM</option>
+                <option value="10:00 AM">10:00 AM</option>
+                <option value="11:00 AM">11:00 AM</option>
+                <option value="12:00 PM">12:00 PM</option>
+                <option value="1:00 PM">1:00 PM</option>
+                <option value="2:00 PM">2:00 PM</option>
+                <option value="3:00 PM">3:00 PM</option>
+                <option value="4:00 PM">4:00 PM</option>
+                <option value="5:00 PM">5:00 PM</option>
+                <option value="6:00 PM">6:00 PM</option>
+                <option value="7:00 PM">7:00 PM</option>
+                <option value="8:00 PM">8:00 PM</option>
+                <option value="9:00 PM">9:00 PM</option>
+                <option value="10:00 PM">10:00 PM</option>
+                <option value="11:00 PM">11:00 PM</option>
+            </select>
+            <br><br>
+
+            <label for="Days" class="form-label">Days:</label>
+            <div class="form-check">
+                <input type="checkbox" id="Monday" name="Days" value="M" class="form-check-input">
+                <label for="Monday" class="form-check-label">Monday</label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" id="Tuesday" name="Days" value="T" class="form-check-input">
+                <label for="Tuesday" class="form-check-label">Tuesday</label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" id="Wednesday" name="Days" value="W" class="form-check-input">
+                <label for="Wednesday" class="form-check-label">Wednesday</label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" id="Thursday" name="Days" value="TH" class="form-check-input">
+                <label for="Thursday" class="form-check-label">Thursday</label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" id="Friday" name="Days" value="F" class="form-check-input">
+                <label for="Friday" class="form-check-label">Friday</label>
+            </div>
+            <br><br>
+
+            <label for="Location" class="form-label">Location:</label>
+            <select id="Location" name="Location" class="form-select">
+                <option value="Any">Any</option>
+                <option value="In Person">In Person</option>
+                <option value="Online">Online</option>
+            </select>
+            <br><br>
+
+            <label for="NumberOfClasses" class="form-label">Number of Classes:</label>
+            <select id="NumberOfClasses" name="NumberOfClasses">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+            <br><br>
+
+
+            <input type="submit" value="Generate Schedule" class="btn btn-primary">
+        </form>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
