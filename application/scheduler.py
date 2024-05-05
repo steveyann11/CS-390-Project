@@ -251,7 +251,6 @@ def display_schedule():
                         time_slots.append((coreq_StartTime, coreq_EndTime))
             if len(selected_classes) >= NumClasses: # Acts as the limit for amount of classes
                 break
-
         # Display the generated classes
         return selected_classes
 

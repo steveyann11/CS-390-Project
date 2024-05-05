@@ -45,7 +45,7 @@
 <body>
     <h1>Personal Preference Schedule</h1>
     <ul>
-        {% for class_info in classes %}
+        {% for class_info in selected_classes %}
         <li>Class ID: {{ class_info[0] }}, Name: {{ class_info[1] }}, Start Time: {{ class_info[2] }}, End Time: {{ class_info[3] }}, Meeting Days: {{ class_info[4] }}, Course Location: {{ class_info[6] }}</li>
         {% endfor %}
     </ul>
