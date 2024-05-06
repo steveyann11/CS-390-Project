@@ -133,7 +133,7 @@ def preference_schedule_maker():
 @app.route('/preference_schedule', methods=['POST'])
 def preference_schedule():
     if request.method == 'POST':
-        selected_classes = display_schedule()
+        selected_classes = preference_schdeuler()
         return render_template('preference_schedule.html', selected_classes=selected_classes)
     else:
         return render_template('preference_schedule.html')
@@ -170,7 +170,7 @@ def revert_times(time):
         if hour > 12:
             hour = hour - 12
     return f"{hour}:{minute:02} {period}"
-def display_schedule():
+def preference_schdeuler():
     conn = sqlite3.connect('../base_database.db')
     cursor = conn.cursor()
     if request.method == 'POST':
