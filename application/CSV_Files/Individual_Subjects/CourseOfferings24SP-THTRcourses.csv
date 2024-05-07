@@ -1,6 +1,0 @@
-Section Name,Short Title,Min Cred,Max Cred,BLDG,ROOM,DAYS,Start Time,End Time,Faculty Name,Avail Status,Prerequisites,Coreq,Notes,Location,Seats Available,Seat Capatcity
-THTR-101-01,INTRO. TO THEATER,3.0,0.0,RQAC,211,TTH,11:30 AM,12:45 PM,"Simone, Edward",Open,,,,MC,25,25
-THTR-212-01,EUROPEAN THEATER HISTORY,3.0,0.0,RQAC,211,MWF,10:30 AM,11:20 AM,"Clingenpeel, Janell",Open,,,,MC,25,25
-THTR-230-01,THEATRICAL DESIGN,3.0,0.0,BUTL,G2,TTH,10:00 AM,11:15 AM,"Clingenpeel, Janell",Open,THTR 130 OR INSTRUCTOR PERMISSION,,,MC,12,12
-THTR-299-01,SBU THEATER PRODUCTION,1.0,0.0,,,,,,"Clingenpeel, JanellSimone, Edward",Open,,,,MC,25,25
-THTR-401-01,DIRECTING,3.0,0.0,DEVE,THTR,TTH,1:00 PM,2:15 PM,"Simone, Edward",Open,,,,MC,12,12
