@@ -90,6 +90,7 @@ def logout():
 #@login_required
 def index():
     return render_template('homepage.html')
+
 # Connects calendar page to database for schedule generation
 @app.route('/calendar', methods=['GET', 'POST'])
 #@login_required
@@ -103,7 +104,11 @@ def calendar():
         data = get_data_from_location()
 #        data.update(get_data_from_details())
         return render_template('calendar.html', data=data)
+    
 def run_randomscheduler():
+    """
+    Runs the code that is stored in RandomScheduler.py
+    """
     process = subprocess.run(['python', 'RandomScheduler.py'], capture_output=True, text=True)
     output = process.stdout
     error = process.stderr
@@ -170,6 +175,8 @@ def revert_times(time):
         if hour > 12:
             hour = hour - 12
     return f"{hour}:{minute:02} {period}"
+
+# Function to generate a schedule pased off personal preferences
 def preference_scheduler():
     conn = sqlite3.connect('../base_database.db')
     cursor = conn.cursor()
